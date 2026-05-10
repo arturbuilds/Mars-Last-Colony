@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --mars-bg: #B94B2D;
+    --mars-dark: #3A1C0E;
+    --mars-panel: rgba(30, 18, 12, 0.95);
+    --mars-dust: #D28C5A;
+    --mars-rust: #A0522D;
+    --mars-sand: #C47A44;
+    --mars-deep: #1F140E;
+}
+
+body {
+    margin: 0;
+    background: #000;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#map {
+    width: 100vw;
+    height: 75vh;
+    background-color: var(--mars-bg);
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.ui {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1100px;
+    padding: 18px 22px;
+    background: rgba(28, 14, 8, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(210, 140, 90, 0.22);
+    border-radius: 24px;
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 10000;
+}
+
+.stats {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    color: #f4c28f;
+}
+
+.stats span { 
+    color: var(--mars-dust); 
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(210, 140, 90, 0.3);
+}
+
+.shop {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.shop button {
+    padding: 10px 18px;
+    min-width: 140px;
+    font-family: 'Montserrat', sans-serif;
+    background: rgba(50, 24, 14, 0.75);
+    border: 1px solid rgba(210, 140, 90, 0.3);
+    border-radius: 14px;
+    color: #e6b27a;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.shop button:hover {
+    background: rgba(82, 33, 15, 1);
+    border-color: rgba(255, 170, 100, 0.28);
+}
+
+.building, .ghost {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.ghost { 
+    opacity: 0.6;
+    z-index: 100; 
+    transition: 0.3s;
+    filter: sepia(0.5) brightness(0.9);
+}
+
+.hidden { 
+    display: none; 
+}
+
+.build-wrapper {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.under-construction {
+    opacity: 0.5;
+    filter: grayscale(1);
+}
+
+.progress-wrap {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 2px;
+    background: #1F140E;
+    border-radius: 0px;
+    overflow: hidden;
+    border-bottom: 1px solid #A0522D;
+    box-shadow: inset 0 1px 0 rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #D28C5A;
+}
+
+.building-menu {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    z-index: 20;
+}
+
+.building-menu button {
+    padding: 2px 6px;
+    font-size: 9px;
+    border-radius: 5px;
+    min-width: 32px;
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    background: #C47A44;
+    color: #1F140E;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    pointer-events: auto;
+}
+
+.building-menu button:hover {
+    background: #E8C9A3;
+    box-shadow: 0 0 8px #D28C5A;
+}
+
+#night-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 20, 50, 0);
+    pointer-events: none;
+    transition: 2s;
+    z-index: 5;
+}
+
+.error-btn {
+    background: #a24 !important;
+    color: white !important;
+    border: 1px solid rgba(255, 180, 180, 0.25);
+    box-shadow: 0 0 10px rgba(170, 34, 68, 0.35);
+}
+
+.persone {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    image-rendering: pixelated;
+    z-index: 15;
+    animation: walkBob 0.6s infinite alternate;
+}
+
+.building-menu {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    display: flex;
+    gap: 4px;
+    z-index: 50;
+}
+
+.dome {
+    transition: 0.4s;
+}
+
+.dome-active {
+    transition: 2s;
+    filter: 
+        brightness(1.15)
+        drop-shadow(0 0 12px rgba(120, 220, 255, 0.8))
+        drop-shadow(0 0 28px rgba(120, 220, 255, 0.6))
+        drop-shadow(0 0 40px rgba(120, 220, 255, 0.35));
+}
+
+.garden-active {
+    transition: 2s;
+    filter: 
+        brightness(1.15)
+        drop-shadow(0 0 12px rgba(120, 255, 224, 0.8))
+        drop-shadow(0 0 28px rgba(120, 255, 221, 0.6))
+        drop-shadow(0 0 40px rgba(120, 220, 255, 0.35));
+}
+
+.dust {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 210, 160, 0.18);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+    animation: dustMove linear forwards;
+}
+
+.spark {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ffcc88;
+    pointer-events: none;
+    box-shadow:
+        0 0 6px #ffb347,
+        0 0 12px #ff7b00;
+    animation: sparkFly linear forwards;
+    z-index: 30;
+}
+
+.build-dust {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(210, 140, 90, 0.75);
+    pointer-events: none;
+    filter: blur(6px);
+    animation: dustBoom 1s ease-out forwards;
+    z-index: 40;
+}
+
+@keyframes dustBoom {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
+
+@keyframes sparkFly {
+    from {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform:
+            translate(var(--x), var(--y))
+            scale(0);
+        opacity: 0;
+    }
+}
+    
+@keyframes dustMove {
+    from {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(120px, 20px);
+        opacity: 0;
+    }
+}
+
+@keyframes buildAnim {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+@keyframes walkBob {
+    from { margin-top: -1px; }
+    to { margin-top: 1px; }
+}
