@@ -5,7 +5,7 @@ let selected = null;
 let isNight = false;
 let people = [];
 let totalPeople = 0;
-let maxPeople = 10;
+let maxPeople = 50;
 let food = 0;
 
 // елементи html
