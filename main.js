@@ -1,5 +1,5 @@
 // змінні
-let metal = 100;
+let metal = 1500;
 let energy = 0;
 let selected = null;
 let isNight = false;
@@ -19,7 +19,7 @@ const buildings = {
         price: 40,
         size: 1,
         buildTime: 3000,
-        icon: 'assets/solar.png',
+        icon: '/assets/solar.png',
         energyPerSecond: 1,
         upgradeCosts: {
             2: 25,
@@ -31,7 +31,7 @@ const buildings = {
         price: 80,
         size: 1,
         buildTime: 6000,
-        icon: 'assets/mine.png',
+        icon: '/assets/mine.png',
         energyPerSecond: 0,
         metalPerSecond: 1,
         upgradeCosts: {
@@ -44,7 +44,7 @@ const buildings = {
         price: 160,
         size: 2,
         buildTime: 8000,
-        icon: 'assets/dome.png',
+        icon: '/assets/dome.png',
         energyPerSecond: -2,
     },
     garden: {
@@ -52,7 +52,7 @@ const buildings = {
         price: 180,
         size: 2,
         buildTime: 5000,
-        icon: 'assets/garden.png',
+        icon: '/assets/garden.png',
         energyPerSecond: -3,
         foodPerCycles: 10,
         cycleTime: 10000
@@ -225,6 +225,11 @@ function placeBuilding(e) {
             b.dataset.food = 0;
 
             b.dataset.type = currentType;
+
+            if (currentType === 'garden') {
+                b.dataset.active = 'true';
+            }
+
             b.dataset.level = 1;
             b.onclick = (e) => {
                 e.stopPropagation();
@@ -484,6 +489,11 @@ function sendPersonToBuilding(persone, type) {
 // рух людинки
 function movePeople() {
     people.forEach(person => {
+        if (!person.targetBuilding || !document.body.contains(person.targetBuilding)) {
+            person.state = 'wander';
+             person.targetBuilding = null;
+        }
+
         if (person.state === 'inside') {
             person.insideTimer--;
 
