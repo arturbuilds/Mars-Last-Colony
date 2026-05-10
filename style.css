@@ -36,7 +36,6 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 1100px;
     padding: 18px 22px;
     background: rgba(28, 14, 8, 0.72);
     backdrop-filter: blur(14px);
