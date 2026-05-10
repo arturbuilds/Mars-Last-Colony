@@ -19,7 +19,7 @@ const buildings = {
         price: 40,
         size: 1,
         buildTime: 3000,
-        icon: '/assets/solar.png',
+        icon: 'assets/solar.png',
         energyPerSecond: 1,
         upgradeCosts: {
             2: 25,
@@ -31,7 +31,7 @@ const buildings = {
         price: 80,
         size: 1,
         buildTime: 6000,
-        icon: '/assets/mine.png',
+        icon: 'assets/mine.png',
         energyPerSecond: 0,
         metalPerSecond: 1,
         upgradeCosts: {
@@ -44,7 +44,7 @@ const buildings = {
         price: 160,
         size: 2,
         buildTime: 8000,
-        icon: '/assets/dome.png',
+        icon: 'assets/dome.png',
         energyPerSecond: -2,
     },
     garden: {
@@ -52,7 +52,7 @@ const buildings = {
         price: 180,
         size: 2,
         buildTime: 5000,
-        icon: '/assets/garden.png',
+        icon: 'assets/garden.png',
         energyPerSecond: -3,
         foodPerCycles: 10,
         cycleTime: 10000
