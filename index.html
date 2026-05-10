@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Mars Colonization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-area" id="map" onclick="placeBuilding(event)" onmousemove="moveGhost(event)">
+        <img id="ghost" class="ghost hidden" src="assets/solar.png">
+    </div>
+
+    <div class="ui">
+        <div class="stats">
+            Енергія: <span id="en">...</span> | Метал: <span id="met">...</span> | Люди: <span id="people">0</span> | Їжа: <span id="food">...</span>
+        </div>
+        <div class="shop">
+            <button onclick="selectBuilding('solar')">Сонячна панель (40 металу)</button>
+            <button onclick="selectBuilding('mine')">Шахта металу (80 металу)</button>
+            <button onclick="selectBuilding('dome')">Головний купол (160 металу)</button>
+            <button onclick="selectBuilding('garden')">Огород (180 металу)</button>
+            <button onclick="spawnPersone()">+ Людина</button>
+            <button onclick="cancel()">Скасувати</button>
+        </div>
+    </div>
+
+    <div id="night-overlay"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>
